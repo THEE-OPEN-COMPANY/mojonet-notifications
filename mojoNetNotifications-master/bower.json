@@ -1,0 +1,21 @@
+{
+  "name": "mojonet-notifications",
+  "homepage": "https://github.com/mkg20001/mojonetNotifications",
+  "authors": [
+    "mkg20001 <mkg20001@gmail.com>"
+  ],
+  "description": "mojonet Notifications, extracted from mojonet",
+  "main": "dist/mojonet-notifications.js",
+  "keywords": [
+    "notifications",
+    "prompts"
+  ],
+  "license": "GPL-3.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}

@@ -1,0 +1,167 @@
+<!doctype html>
+<html>
+
+<head>
+  <title>mojonetNotifications | Try it!</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css">
+  <link rel="stylesheet" href="dist/mojonet-notifications.min.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background-color: #D2CECD;
+      overflow: hidden
+    }
+
+    a {
+      color: black
+    }
+
+    .inner {
+      margin-left: 32px;
+    }
+
+    .outer {
+      margin-left: 64px;
+      position: fixed;
+      top: 64px;
+      left: 64px;
+    }
+
+    @media(max-width:425px) {
+      .outer {
+        top: 4px;
+        left: 4px;
+        margin-left: 4px;
+      }
+
+      .inner {
+        margin-left: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Notifications -->
+  <div class="notifications">
+  </div>
+
+  <!-- Content -->
+  <div class="outer">
+    <h1>mojonet Notifications</h1>
+    <p>Nice and simple notifications, extracted from the mojonet Source Code</p>
+    <br>
+    <div class="inner">
+      <h2><a href=" https://github.com/THEE-OPEN-COMPANY/mojonet-notifications.git">» Source on GitHub</a></h2>
+      <h3><a href="https://github.com/THEE-OPEN-COMPANY/mojonet.git">» Original Code from mojonet</a></h3>
+    </div>
+  </div>
+</body>
+
+<script src="dist/mojonet-notifications.all.min.js"></script>
+<script>
+  const n = new Notifications($('.notifications'))
+  var i = 0
+  const m = 500
+
+  function id() {
+    return 'msg' + (i++)
+  }
+
+  function delay(b, c, d) {
+    const a = id()
+    setTimeout(n.add.bind(n), i * m, a, b, c, d)
+    return a
+  }
+  delay('done', 'Success notification', 0)
+  delay('error', 'Error notification', 0)
+  delay('info', 'Info notification', 0)
+  delay('ask', 'Ask notification', 0)
+  var p = 0
+  var p2 = 0
+  var pid = id()
+  setTimeout(function () {
+    var msg = n.add(pid, 'progress', 'Progress notification (___)', 3000)
+    const intv = setInterval(function () {
+      msg.setBody('Progress notification (' + p + '/10)').setProgress(p * 10)
+      if (p == 10) {
+        clearInterval(intv)
+      }
+      p++
+    }, 1000)
+  }, i * m)
+  var pid2 = id()
+  setTimeout(function () {
+    var msg2 = n.add(pid2, 'progress', 'Failing progress notification (___)', 3000)
+    const intv2 = setInterval(function () {
+      if (p2 == 5) {
+        clearInterval(intv2)
+        p2 = -1
+      }
+      msg2.setBody('Failing progress notification (' + p2 + '/5)').setProgress(p2 * 10)
+      p2++
+    }, 1000)
+  }, i * m)
+  delay('info', 'Auto closing notification', 5000)
+
+  function prompt1() {
+    n.add(id(), 'prompt', 'Type something', 0, {
+      cancel_label: 'Cancel',
+      confirm_label: 'Ok'
+    }, function (event, res) {
+      if (event == 'auto' || event == 'user' || typeof res === 'boolean') {
+        n.add(id(), 'error', 'You ' + (event == 'user' ? 'closed' : 'canceled') + ' the message', 3000)
+      } else {
+        n.add(id(), res ? 'done' : 'error', res ? ('You typed: ' + res) : 'You typed, nothing!', 3000)
+      }
+      setTimeout(prompt1, 3000)
+    })
+  }
+
+  function prompt2() {
+    n.add(id(), 'confirm', 'Restart demo?', 0, {
+      cancel_label: 'Cancel',
+      confirm_label: 'Ok'
+    }, function (event, res) {
+      if (event == 'auto' || event == 'user') {
+        n.add(id(), 'error', 'You closed the message', 3000)
+      } else {
+        if (res) {
+          n.add(id(), 'info', 'Reloading...', 3000)
+          setTimeout(window.location.reload.bind(window.location), 2000)
+        } else n.add(id(), 'error', 'Canceled', 3000)
+      }
+      setTimeout(prompt2, 3000)
+    })
+  }
+
+  /* function prompt3() {
+    n.add(id(), "confirm", "Visit GitHub Page?", 0, {
+      cancel_label: "Cancel",
+      confirm_label: "Ok"
+    }, function(event, res) {
+      if (event == "auto" || event == "user") {
+        n.add(id(), "error", "You closed the message", 3000)
+      } else {
+        if (res) {
+          n.add(id(), "info", "Loading...", 3000);
+          setTimeout(function() {
+            window.location.href = "https://github.com/THEE-OPEN-COMPANY/mojonet.git"
+          }, 2000)
+        } else n.add(id(), "error", "Canceled", 3000)
+      }
+      setTimeout(prompt3, 3000)
+    })
+  } */
+
+  setTimeout(prompt1, (i + 1) * m)
+  setTimeout(prompt2, (i + 2) * m)
+  // setTimeout(prompt3, (i + 3) * m)
+</script>
+
+</html>

@@ -1,0 +1,41 @@
+{
+  "name": "mojonet-notifications",
+  "version": "0.1.0",
+  "description": "mojonet Notifications",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prerelease": "gulp",
+    "build": "gulp"
+  },
+  "repository": {
+    "type": "git",
+    "url": "   https://github.com/THEE-OPEN-COMPANY/mojonet-notifications.git"
+  },
+  "keywords": [
+    "mojonet",
+    "notifications"
+  ],
+  "author": " https://github.com/mojokageni ",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "   https://github.com/THEE-OPEN-COMPANY/mojonet-notifications/issues"
+  },
+  "homepage": "  https://github.com/THEE-OPEN-COMPANY/mojonet-notifications.git  ",
+  "dependencies": {
+    "jquery": "^3.3.1",
+    "jquery.easing": "^1.4.1"
+  },
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^4.0.0",
+    "gulp-clean-css": "^3.9.2",
+    "gulp-coffee": "^3.0.2",
+    "gulp-concat": "^2.6.1",
+    "gulp-if": "^2.0.2",
+    "gulp-load-plugins": "^1.5.0",
+    "gulp-sourcemaps": "^2.6.4",
+    "gulp-uglify": "^3.0.0",
+    "uglify-es": "^3.3.9"
+  }
+}
